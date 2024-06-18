@@ -496,4 +496,5 @@ if __name__ == "__main__":
     # combine(parent_path)
 
     # parent_path = r"XXX\Normal control.xlsx"
-    # handle(parent_path)
+    # dst_path = "XXX"
+    # handle(parent_path, dst_path)
