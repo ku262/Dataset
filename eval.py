@@ -319,9 +319,6 @@ def blink(csv_path, txt_path):
 
     return count
 
-# def saccade(points):
-
-
 def generate_heatmap(points, width, height):
     x = [p[0] for p in points]
     y = [p[1] for p in points]
@@ -358,21 +355,6 @@ def heat_map(point_contrix):
 
     # 绘制热图
     # 'Spectral_r' 'turbo' 'jet' 'rainbow'
-
-    from matplotlib.colors import ListedColormap
-    # from matplotlib.cm import register_cmap
-    # 获取turbo颜色映射的颜色
-    turbo_cmap = plt.get_cmap('turbo', 256)  # 假设我们想要256个颜色
-    turbo_colors = turbo_cmap.colors
-
-    # 在颜色列表的开头添加一个黑色
-    # turbo_colors = [(0, 0, 0, 1)] + turbo_colors[1:]  # 注意：我们跳过了原始列表中的第一个颜色
-    turbo_colors = np.vstack(([0, 0, 0, 1], turbo_colors[1:]))
-    # 创建自定义的ListedColormap
-    custom_turbo_cmap = ListedColormap(turbo_colors)
-
-    # 注册自定义颜色映射（可选，但可以让您在后续直接使用名称'custom_turbo'）
-    # register_cmap(name='custom_turbo', cmap=custom_turbo_cmap)
 
     plt.figure(figsize=(6.4, 3.6), dpi=300)
     ax = plt.subplot()
@@ -415,10 +397,7 @@ def main(parent_path):
     for idx, i in enumerate(person_path):
         print(f"{idx}/{len(person_path)}")
         name = i.split("\\")[-1]
-        if name == "鞠辉" and parent_path.split('\\')[-1] == "眼动 回顾 无AI":
-            continue
-        if not name == "杨瑞杰":
-            continue
+
         if os.path.exists(os.path.join(i, "new_raw.csv")):
             raw_path = os.path.join(i, "new_raw.csv")
         else:
@@ -477,14 +456,14 @@ def combine(parent_path):
     output_file_path = parent_path + '_merged.csv'
     merged_df.to_csv(output_file_path, index=False)
 
-    print(f"合并后的文件已保存到 {output_file_path}")
+    print(f"save to {output_file_path}")
 
-def handle(parent_path):
+def handle(parent_path, dst_path):
     # 读取 CSV 文件
     csv_file_path = parent_path
     df_xlsx = pd.read_excel(csv_file_path)
 
-    hans2eng = {"学生": "Student", "护士": "Nurse", "低年": "Di Nian", "高年": "Gao Nian"}
+    hans2eng = {"学生": "Graduate students ", "护士": "Endoscopy nurses", "低年": "Novice endoscopists", "高年": "Senior endoscopists"}
 
     level, Ring, Side = list(df_xlsx["熟练程度/身份判定"]), list(df_xlsx["Ring"]), list(df_xlsx["Side"])
     data = []
@@ -506,30 +485,15 @@ def handle(parent_path):
     sns.boxplot(x=fields, y=f"% of Total({fields})", hue="level", data=df, palette="flare")
     plt.xlabel(fields)
     plt.ylabel('% of Total Fixations')
-    plt.savefig(rf'D:\Desktop\毕设\眼动数据集文章\带AI_{fields}.png', dpi=300)
+    plt.savefig(dst_path+rf'\Normal control_{fields}.png', dpi=300)
     plt.show()
 
 if __name__ == "__main__":
 
-    # raw_path = "./date/杨瑞杰 回顾 无AI/raw.csv"
-    # match2_path = "./date/杨瑞杰 回顾 无AI/match2.csv"
-    # txt_path = "./date/杨瑞杰 回顾 无AI/key_press_log_2024-03-17_11-09-59.txt"
-    # fields = 1  # 1: Ring 2: Side
-    # regions = {1: "Ring", 2: "Side"}
-    #
-    # detection = detection_rate(match2_path)
-    # print(f"detection rate: {detection}")
-    # total_distance = eye_travel_distance(raw_path, txt_path)
-    # print(f"total distance: {total_distance}")
-    # fixed_points = fixation_points(raw_path, txt_path)
-    # region_counts = fixations_ratio(fixed_points, fields=fields)
-    # print(f"Region: {regions[fields]} Counts: {region_counts}")
-    # blink_count = blink(raw_path, txt_path)
-    # print(f"Blink Count: {blink_count}")
-    # heat_map(fixed_points)
-    parent_path = r"G:\眼动2  2024.03.01\眼动-回顾\眼动 回顾 带AI"
+
+    parent_path = r"XXX\眼动-回顾\CADe-assisted"  #or  "XXX\眼动-回顾\Normal control"
     main(parent_path)
     # combine(parent_path)
 
-    # parent_path = r"D:\Desktop\毕设\眼动数据集文章\带AI.xlsx"
+    # parent_path = r"XXX\Normal control.xlsx"
     # handle(parent_path)
