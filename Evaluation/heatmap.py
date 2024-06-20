@@ -47,12 +47,12 @@ def heat_map(point_contrix, last_str):
 
     plt.imshow(heatmap.T, cmap="turbo", origin='lower', alpha=1)
 
-    plt.savefig(f'heatmap_{last_str}.png', dpi=300)
+    plt.savefig(rf'.\imgs\heatmap_{last_str}.png', dpi=300)
     plt.show()
 
-    image = cv2.imread('../imgs/raw.png')
-    image2 = cv2.imread(f'../imgs/heatmap_{last_str}.png')
+    image = cv2.imread(r'.\imgs\raw.png')
+    image2 = cv2.imread(rf'.\imgs\heatmap_{last_str}.png')
 
     result = cv2.addWeighted(image, 1.0, image2, 0.7, 0)
 
-    cv2.imwrite(f'../imgs/result_{last_str}.png', result)
+    cv2.imwrite(rf'.\imgs\result_{last_str}.png', result)

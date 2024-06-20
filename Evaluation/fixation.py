@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Evaluation import str2contrix
+from Evaluation.utils import str2contrix
 
 def fixation_points(csv_path):
 

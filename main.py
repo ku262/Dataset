@@ -14,7 +14,7 @@ def main(parent_path, output_path, last_str="None", draw=False):
         name = i.split(os.sep)[-1]
 
         raw_path = os.path.join(i, "time_gaze.csv")
-        match_path = os.path.join(output_path, i, "match.csv")
+        match_path = os.path.join(output_path, name, "match.csv")
 
         detection = detection_rate(match_path)
         # print(f"detection rate: {detection}")
@@ -47,7 +47,7 @@ def get_file(parent_path, calibrate_csv_path, output_path):
     person_path = [i for i in person_path if os.path.isdir(i)]
     for idx, i in enumerate(person_path):
         get_match_file(i, calibrate_csv_path, output_path)
-        cal_reaction_time(i) #Calculate reaction time
+        cal_reaction_time(output_path) #Calculate reaction time
 
 if __name__ == "__main__":
 
@@ -57,8 +57,8 @@ if __name__ == "__main__":
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     get_file(parent_path, calibrate_csv_path, output_path)
-    main(parent_path=parent_path, output_path=output_path)
+    main(parent_path=parent_path, output_path=output_path, draw=True)
 
     parent_path = r".\outputs\retrospective\CADe-assisted_eval.csv"
-    dst_path = rf'..\imgs\CADe-assisted_Side.png'
+    dst_path = r'.\imgs\CADe-assisted_Side.png'
     handle(parent_path, dst_path, fields="Side") # Side or Ring
