@@ -89,5 +89,5 @@ def handle(parent_path, dst_path, fields = "Side"):
     sns.boxplot(x=fields, y=f"% of Total({fields})", hue="level", data=df, palette="flare")
     plt.xlabel(fields)
     plt.ylabel('% of Total Fixations')
-    plt.savefig(dst_path+rf'../imgs/Normal control_{fields}.png', dpi=300)
+    plt.savefig(dst_path, dpi=300)
     plt.show()
