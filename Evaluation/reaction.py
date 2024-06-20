@@ -14,21 +14,19 @@ def cal_reaction_time(obj):
         print(mean_reaction_time)
 
 def str2timestamp(timestamp_str):
-    # 解析时间戳字符串
+
     timestamp_parts = timestamp_str.split(':')
 
     return int(timestamp_parts[0])*3600+int(timestamp_parts[1])*60+float(timestamp_parts[2])
 
 def trans(total_seconds):
-    # 使用 divmod 函数获取整数和小数部分
+
     seconds_integer, seconds_fraction = divmod(total_seconds, 1)
 
-    # 将整数部分转换为小时、分钟和秒数，并确保输出是两位数
     hours = str(int(seconds_integer // 3600)).zfill(2)
     minutes = str(int((seconds_integer % 3600) // 60)).zfill(2)
     seconds = str(int(seconds_integer % 60)).zfill(2)
 
-    # 将小数部分转换为毫秒，并确保输出是三位数（两位数字 + 补零）
     milliseconds = str(int(seconds_fraction * 1000)).zfill(3)
 
     res = hours+":"+minutes+":"+seconds+"."+milliseconds
@@ -36,24 +34,21 @@ def trans(total_seconds):
 
 def check(start_timestamp, end_timestamp, video_frames):
 
-    # 初始化一个存储索引的列表
     result_indices = []
     bool_list = np.zeros(np.array(start_timestamp).shape)
     error_list = []
-    # 遍历 press 数组
     for idx, p in enumerate(video_frames):
-        found_index = -1  # 默认为 -1，表示没找到匹配的范围
+        found_index = -1
 
-        # 使用 zip() 同时遍历 start 和 end 数组
         for i, (s, e) in enumerate(zip(start_timestamp, end_timestamp)):
-            if s <= p <= e:  # 如果 press 数值在当前范围内
-                found_index = i  # 记录索引
-                break  # 找到了就不用再继续搜索了，直接跳出循环
+            if s <= p <= e:
+                found_index = i
+                break
         if found_index in result_indices:
             found_index = -1
         if found_index == -1:
             error_list.append(idx)
-        result_indices.append(found_index)  # 将结果添加到列表中
+        result_indices.append(found_index)
     for i in result_indices:
         if i != -1:
             bool_list[i] = 1
@@ -62,7 +57,7 @@ def check(start_timestamp, end_timestamp, video_frames):
 
 def readtxt(file_path):
     with open(file_path, 'r') as file:
-        # 读取文件内容
+
         lines = file.readlines()
     press_time_list = []
     video_head_date = "None"

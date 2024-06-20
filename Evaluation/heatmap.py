@@ -55,5 +55,4 @@ def heat_map(point_contrix, last_str):
 
     result = cv2.addWeighted(image, 1.0, image2, 0.7, 0)
 
-    # 保存或显示结果
     cv2.imwrite(f'../imgs/result_{last_str}.png', result)

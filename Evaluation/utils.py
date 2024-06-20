@@ -84,7 +84,6 @@ def handle(parent_path, dst_path, fields = "Side"):
 
     df = pd.DataFrame(data, columns=columns)
 
-
     plt.figure(figsize=(8, 6))
     sns.boxplot(x=fields, y=f"% of Total({fields})", hue="level", data=df, palette="flare")
     plt.xlabel(fields)
