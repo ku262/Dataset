@@ -54,6 +54,8 @@ if __name__ == "__main__":
     calibrate_csv_path = r"xxx"
     parent_path = r"XXX\retrospective\CADe-assisted"  #or  "XXX\retrospective\Normal control"
     output_path = r".\outputs"
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
     get_file(parent_path, calibrate_csv_path, output_path)
     main(parent_path=parent_path, output_path=output_path)
 
