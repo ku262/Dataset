@@ -1,7 +1,7 @@
 import os
 import csv
 from Evaluation import detection_rate, eye_travel_distance, fixation_points, fixations_ratio, blink, heat_map
-from Evaluation import get_match_file, cal_reaction_time
+from Evaluation import get_match_file, cal_reaction_time, handle
 
 def main(parent_path, output_path, last_str="None", draw=False):
 
@@ -31,7 +31,7 @@ def main(parent_path, output_path, last_str="None", draw=False):
 
         total_data.append([name, detection, total_distance, len(fixed_points), blink_count, region_counts_1, region_counts_2])
 
-    csv_file_path = parent_path+"_eval.csv"
+    csv_file_path = output_path+"_eval.csv"
 
     with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
@@ -53,12 +53,12 @@ if __name__ == "__main__":
 
     calibrate_csv_path = r"xxx"
     parent_path = r"XXX\retrospective\CADe-assisted"  #or  "XXX\retrospective\Normal control"
-    output_path = r".\outputs"
+    output_path = r".\outputs\retrospective\CADe-assisted"
     if not os.path.exists(output_path):
-        os.mkdir(output_path)
+        os.makedirs(output_path)
     get_file(parent_path, calibrate_csv_path, output_path)
     main(parent_path=parent_path, output_path=output_path)
 
-    # parent_path = r"XXX\xxx_eval.csv"
-    # dst_path = rf'..\imgs\CADe-assisted_Side.png'
-    # handle(parent_path, dst_path, fields="Side") # Side or Ring
+    parent_path = r"XXX\xxx_eval.csv"
+    dst_path = rf'..\imgs\CADe-assisted_Side.png'
+    handle(parent_path, dst_path, fields="Side") # Side or Ring
