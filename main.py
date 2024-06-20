@@ -60,5 +60,5 @@ if __name__ == "__main__":
     main(parent_path=parent_path, output_path=output_path)
 
     # parent_path = r"XXX\xxx_eval.csv"
-    # dst_path = "XXX"
+    # dst_path = rf'..\imgs\CADe-assisted_Side.png'
     # handle(parent_path, dst_path, fields="Side") # Side or Ring
