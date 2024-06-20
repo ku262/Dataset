@@ -59,6 +59,6 @@ if __name__ == "__main__":
     get_file(parent_path, calibrate_csv_path, output_path)
     main(parent_path=parent_path, output_path=output_path)
 
-    parent_path = r"XXX\xxx_eval.csv"
+    parent_path = r".\outputs\retrospective\CADe-assisted_eval.csv"
     dst_path = rf'..\imgs\CADe-assisted_Side.png'
     handle(parent_path, dst_path, fields="Side") # Side or Ring
