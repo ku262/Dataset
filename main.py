@@ -51,7 +51,7 @@ def get_file(parent_path, calibrate_csv_path, output_path):
 
 if __name__ == "__main__":
 
-    calibrate_csv_path = r"xxx"
+    calibrate_csv_path = r"XXX\retrospective\polyp-presence-period.csv"
     parent_path = r"XXX\retrospective\CADe-assisted"  #or  "XXX\retrospective\Normal control"
     output_path = r".\outputs\retrospective\CADe-assisted"
     if not os.path.exists(output_path):
